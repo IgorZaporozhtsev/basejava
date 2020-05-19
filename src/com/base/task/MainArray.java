@@ -1,8 +1,9 @@
+package com.base.task;
 
 import java.util.Arrays;
 import java.util.UUID;
-import model.Resume;
-import storage.ArrayStorage;
+import com.base.task.model.Resume;
+import com.base.task.storage.ArrayStorage;
 
 public class MainArray {
 

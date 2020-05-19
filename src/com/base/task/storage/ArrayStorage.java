@@ -1,8 +1,7 @@
-package storage;
+package com.base.task.storage;
 
-import java.util.Arrays;
 import java.util.UUID;
-import model.Resume;
+import com.base.task.model.Resume;
 
 public class ArrayStorage {
 
@@ -11,7 +10,7 @@ public class ArrayStorage {
 
   public Resume[] getAll() {
     Resume[] resumes = new Resume[size];
-    //Resume[] resumes = Arrays.copyOf(storage, size);
+    //Resume[] resumes = Arrays.copyOf(com.base.task.storage, size);
     for (int i = 0; i < size; i++) {
       resumes[i] = storage[i];
     }
@@ -66,7 +65,7 @@ public class ArrayStorage {
   private boolean resumeIsPresent(Resume resume) {
     for (int i = 0; i < size; i++) {
       if (resume.getName().equalsIgnoreCase(storage[i].getName())) {
-        System.out.println("Resume " + resume.getName() + " present in storage");
+        System.out.println("Resume " + resume.getName() + " present in com.base.task.storage");
         return true;
       }
     }
