@@ -8,12 +8,12 @@ import com.base.task.storage.ArrayStorage;
 public class MainArray {
 
   public static void main(String[] args) {
+    Storage storage = new ArrayStorage();
+
     Resume resumeIgor = new Resume(UUID.randomUUID(), "Igor", "Java Developer");
     Resume resumeIgorUpadated = new Resume(UUID.randomUUID(),"Igor", "C++ Developer");
     Resume resumeSam = new Resume(UUID.randomUUID(),"Sam", "Python Developer");
     Resume resumeTom = new Resume(UUID.randomUUID(),"Tom", "JS Developer");
-
-    ArrayStorage storage = new ArrayStorage();
 
     storage.save(resumeIgor);
 

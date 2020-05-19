@@ -1,9 +1,12 @@
 package com.base.task.storage;
 
+import com.base.task.Storage;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.UUID;
 import com.base.task.model.Resume;
 
-public class ArrayStorage {
+public class ArrayStorage implements Storage {
 
   private static int size = 0;
   private Resume[] storage = new Resume[1000];
@@ -62,7 +65,7 @@ public class ArrayStorage {
     }
   }
 
-  private boolean resumeIsPresent(Resume resume) {
+  public boolean resumeIsPresent(Resume resume) {
     for (int i = 0; i < size; i++) {
       if (resume.getName().equalsIgnoreCase(storage[i].getName())) {
         System.out.println("Resume " + resume.getName() + " present in com.base.task.storage");
@@ -77,7 +80,7 @@ public class ArrayStorage {
   }
 
   public void clear() {
-    storage = null;
+    Arrays.fill(storage,0, size, null);
     size = 0;
   }
 
