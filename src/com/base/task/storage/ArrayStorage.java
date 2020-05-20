@@ -1,15 +1,10 @@
 package com.base.task.storage;
 
-import com.base.task.Storage;
 import java.util.Arrays;
 import java.util.UUID;
 import com.base.task.model.Resume;
 
-public class ArrayStorage implements Storage {
-
-  private static final int STORAGE_LIMIT = 0;
-  private int size = 0;
-  private Resume[] storage = new Resume[1000];
+public class ArrayStorage extends AbstractArrayStorage {
 
   public Resume[] getAll() {
     return Arrays.copyOf(storage, size);
