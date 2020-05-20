@@ -15,9 +15,7 @@ public interface Storage {
 
   void update(Resume resume);
 
-  void delete(Resume resume);
-
-  boolean resumeIsPresent(Resume resume);
+  void delete(UUID uuid);
 
   int size();
 

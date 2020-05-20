@@ -1,32 +1,27 @@
 package com.base.task.storage;
 
 import com.base.task.Storage;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.UUID;
 import com.base.task.model.Resume;
 
 public class ArrayStorage implements Storage {
 
-  private static int size = 0;
+  private static final int STORAGE_LIMIT = 0;
+  private int size = 0;
   private Resume[] storage = new Resume[1000];
 
   public Resume[] getAll() {
-    Resume[] resumes = new Resume[size];
-    //Resume[] resumes = Arrays.copyOf(com.base.task.storage, size);
-    for (int i = 0; i < size; i++) {
-      resumes[i] = storage[i];
-    }
-    return resumes;
+    return Arrays.copyOf(storage, size);
   }
 
   public Resume getById(UUID uuid) {
-    for (int i = 0; i < size; i++) {
-      if (uuid == storage[i].getUuid()) {
-        return storage[i];
-      }
+    int index = getResumeIndex(uuid);
+    if (index == -1) {
+      System.out.println("Resume " + uuid + " not exist");
+      return null;
     }
-    return null;
+    return storage[index];
   }
 
   public Resume getByName(String name) {
@@ -39,40 +34,42 @@ public class ArrayStorage implements Storage {
   }
 
   public void save(Resume resume) {
-    if (!resumeIsPresent(resume)) {
+    if (getResumeIndex(resume.getUuid()) != -1) {
+      System.out.println("Resume " + resume.getUuid() + " already exist");
+    } else if (size == STORAGE_LIMIT) {
+      System.out.println("Storage overflow");
+    } else {
       storage[size] = resume;
       size++;
     }
   }
 
   public void update(Resume resume) {
-    if (resumeIsPresent(resume)) {
-      Resume byName = getByName(resume.getName());
-      byName.setUuid(resume.getUuid());
-      byName.setName(resume.getName());
-      byName.setPosition(resume.getPosition());
+    int index = getResumeIndex(resume.getUuid());
+    if (index == -1) {
+      System.out.println("Resume " + resume.getName() + " not exist");
+    } else {
+      storage[index] = resume;
     }
   }
 
-  public void delete(Resume resume) {
-    if (resumeIsPresent(resume)) {
-      for (int i = 0; i < size; i++) {
-        if (resume.getUuid() == storage[i].getUuid()) {
-          storage[i] = storage[size - 1];
-          size--;
-        }
-      }
+  public void delete(UUID uuid) {
+    int index = getResumeIndex(uuid);
+    if (index == -1) {
+      System.out.println("Resume " + uuid + " not exist");
+    } else {
+      storage[index] = storage[size - 1];
+      size--;
     }
   }
 
-  public boolean resumeIsPresent(Resume resume) {
+  private int getResumeIndex(UUID uuid) {
     for (int i = 0; i < size; i++) {
-      if (resume.getName().equalsIgnoreCase(storage[i].getName())) {
-        System.out.println("Resume " + resume.getName() + " present in com.base.task.storage");
-        return true;
+      if (uuid == storage[i].getUuid()) {
+        return i;
       }
     }
-    return false;
+    return -1;
   }
 
   public int size() {
@@ -80,9 +77,7 @@ public class ArrayStorage implements Storage {
   }
 
   public void clear() {
-    Arrays.fill(storage,0, size, null);
+    Arrays.fill(storage, 0, size, null);
     size = 0;
   }
-
-
 }
