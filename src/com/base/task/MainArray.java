@@ -31,9 +31,11 @@ public class MainArray {
     System.out.println(storage.size());
 
     System.out.println("--------- UPDATE  ------ ");
+
     storage.update(resumeIgorUpdated);
 
     System.out.println("--------- DELETE ------ ");
+
     storage.delete(resumeSam.getUuid());
 
     System.out.println("--------- GET ALL ------ ");
