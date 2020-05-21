@@ -7,7 +7,7 @@ public interface Storage {
 
   Resume[] getAll();
 
-  Resume getById(UUID uuid);
+  Resume getById(String uuid);
 
   Resume getByName(String name);
 
@@ -15,7 +15,7 @@ public interface Storage {
 
   void update(Resume resume);
 
-  void delete(UUID uuid);
+  void delete(String uuid);
 
   int size();
 
